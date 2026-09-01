@@ -1,0 +1,76 @@
+# Configuración para hosting Windows/Apache
+
+# Habilitar compresión
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Cacheo de archivos estáticos
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+</IfModule>
+
+# Seguridad - Ocultar información del servidor
+<IfModule mod_headers.c>
+    Header unset X-Powered-By
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Páginas de error personalizadas (opcional)
+# ErrorDocument 404 /404.html
+# ErrorDocument 500 /500.html
+
+# Redirecciones (si es necesario)
+# Redirect 301 /old-page.html /new-page.html
+
+# Proteger archivos sensibles
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Proteger archivo de vehículos (opcional - comentado por defecto)
+# <Files "vehicles.json">
+#     Order allow,deny
+#     Deny from all
+# </Files>
+
+# PHP - Configuración de errores (comentado para producción)
+# php_flag display_errors Off
+# php_value error_reporting 0
+
+# Charset UTF-8
+AddDefaultCharset UTF-8
+
+# Forzar HTTPS (descomentar si tiene SSL)
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# WWW o sin WWW (elegir una opción)
+# Redirigir de www a sin www
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+#     RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+# </IfModule>
+
+# O redirigir de sin www a www
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTP_HOST} !^www\. [NC]
+#     RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+# </IfModule>

@@ -1,0 +1,30 @@
+# Archivos y carpetas a ignorar en control de versiones
+# (útil si se usa Git para gestionar el sitio)
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Logs
+*.log
+error_log
+
+# Temporales
+*.tmp
+*.bak
+*.backup
+
+# Archivos de configuración local
+config.local.php
+.env
+
+# No ignorar archivos necesarios
+!.htaccess

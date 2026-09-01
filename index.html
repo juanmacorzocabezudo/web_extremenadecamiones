@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extremeña de Camiones</title>
+    <meta name="description" content="Distribuidor oficial de Renault Trucks, Manitou, Landini y McCormick en Extremadura. Venta, postventa y vehículos de ocasión.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="page-loader" class="page-loader">
+        <div class="loader-background"></div>
+        <div class="loader-content">
+            <img src="images/iconocamion.png" alt="Cargando..." class="loader-icon">
+            <div class="loader-spinner"></div>
+            <p class="loader-text">Cargando...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-content">
+                    <div class="contact-info">
+                        <a href="tel:+34924371718"><i class="icon-phone"></i> 924 37 17 18</a>
+                        <a href="mailto:info@extremenadecamiones.es"><i class="icon-email"></i> info@extremenadecamiones.es</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" target="_blank" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                        <a href="#" target="_blank" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                        <a href="#" target="_blank" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-home">
+            <div class="container">
+                <a href="index.html" class="logo logo-home">
+                    <img src="images/logoextremena.png" alt="Extremeña de Camiones" class="logo-img">
+                </a>
+                <button class="mobile-menu-toggle" aria-label="Menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active">Inicio</a></li>
+                    <li><a href="presentacion.html">Empresa</a></li>
+                    <li><a href="postventa.html">Postventa</a></li>
+                    <li><a href="ocasion.html">Ocasión</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Marcas</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="renault.html">Renault Trucks</a></li>
+                            <li><a href="manitou.html">Manitou</a></li>
+                            <li><a href="landini.html">Landini</a></li>
+                            <li><a href="mccormick.html">McCormick</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="hero-slide active" style="background-image: url('images/hero1.jpg')">
+                <div class="hero-overlay"></div>
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">La fuerza del vehículo industrial en Extremadura</h1>
+                        <p class="hero-subtitle">Distribuidor oficial de Renault Trucks, Manitou, Landini y McCormick</p>
+                        <div class="hero-buttons">
+                            <a href="ocasion.html" class="btn btn-primary">Ver Ocasión</a>
+                            <a href="contacto.html" class="btn btn-secondary">Contactar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('images/hero2.jpg')">
+                <div class="hero-overlay"></div>
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Servicio de excelencia</h1>
+                        <p class="hero-subtitle">El mejor equipo en Mérida, Cáceres y Badajoz</p>
+                        <div class="hero-buttons">
+                            <a href="postventa.html" class="btn btn-primary">Nuestros Servicios</a>
+                            <a href="presentacion.html" class="btn btn-secondary">Conocer Más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('images/hero3.jpg')">
+                <div class="hero-overlay"></div>
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Vehículos de ocasión</h1>
+                        <p class="hero-subtitle">Le garantizamos el mejor vehículo según sus necesidades</p>
+                        <div class="hero-buttons">
+                            <a href="ocasion.html" class="btn btn-primary">Ver Vehículos</a>
+                            <a href="contacto.html" class="btn btn-secondary">Solicitar Información</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="hero-prev" aria-label="Anterior">‹</button>
+        <button class="hero-next" aria-label="Siguiente">›</button>
+        <div class="hero-dots"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Empresa</h3>
+                    <p>Nos superamos gracias a ti. La fuerza del vehículo industrial en Extremadura.</p>
+                    <a href="presentacion.html" class="feature-link">Leer más →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                    </div>
+                    <h3>Postventa</h3>
+                    <p>Sabemos dar respuesta. El mejor asesoramiento en venta y post-venta.</p>
+                    <a href="postventa.html" class="feature-link">Conocer servicios →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                    </div>
+                    <h3>Ocasión</h3>
+                    <p>Conseguimos lo que buscas. Le garantizamos el mejor vehículo.</p>
+                    <a href="ocasion.html" class="feature-link">Ver vehículos →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="brands-section">
+        <div class="container">
+            <h2 class="section-title">Distribuidor Oficial</h2>
+            <div class="brands-grid">
+                <a href="renault.html" class="brand-card">
+                    <div class="brand-logo">
+                        <img src="images/renault-logo.png" alt="Renault Trucks">
+                    </div>
+                    <h3>Renault Trucks</h3>
+                    <p>Una gama completa de soluciones de transporte</p>
+                </a>
+                <a href="manitou.html" class="brand-card">
+                    <div class="brand-logo">
+                        <img src="images/manitou-logo.png" alt="Manitou">
+                    </div>
+                    <h3>Manitou</h3>
+                    <p>Manipulación de materiales y elevación</p>
+                </a>
+                <a href="landini.html" class="brand-card">
+                    <div class="brand-logo">
+                        <img src="images/landini.png" alt="Landini">
+                    </div>
+                    <h3>Landini</h3>
+                    <p>Tractores agrícolas</p>
+                </a>
+                <a href="mccormick.html" class="brand-card">
+                    <div class="brand-logo">
+                        <img src="images/McCormick.png" alt="McCormick">
+                    </div>
+                    <h3>McCormick</h3>
+                    <p>Tractores agrícolas de alta calidad</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Necesita asesoramiento?</h2>
+                <p>Nuestro equipo está a su disposición para ayudarle a encontrar la solución perfecta</p>
+                <a href="contacto.html" class="btn btn-light">Contactar ahora</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Extremeña de Camiones</h4>
+                    <p>Distribuidor oficial de Renault Trucks, Manitou, Landini y McCormick en Extremadura.</p>
+                    <div class="footer-social">
+                        <a href="#" target="_blank" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                        <a href="#" target="_blank" aria-label="Instagram"><i class="icon-instagram"></i></a>
+                        <a href="#" target="_blank" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="presentacion.html">Empresa</a></li>
+                        <li><a href="postventa.html">Postventa</a></li>
+                        <li><a href="ocasion.html">Ocasión</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Marcas</h4>
+                    <ul>
+                        <li><a href="renault.html">Renault Trucks</a></li>
+                        <li><a href="manitou.html">Manitou</a></li>
+                        <li><a href="landini.html">Landini</a></li>
+                        <li><a href="mccormick.html">McCormick</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul class="footer-contact">
+                        <li>Pol. Ind. El Prado, C/Zaragoza, 11</li>
+                        <li>06800 - Mérida (Badajoz)</li>
+                        <li><a href="tel:+34924371718">924 37 17 18</a></li>
+                        <li><a href="mailto:info@extremenadecamiones.es">info@extremenadecamiones.es</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Extremeña de Camiones. Todos los derechos reservados.</p>
+                <div class="footer-legal">
+                    <a href="aviso-legal.html">Aviso Legal</a>
+                    <a href="politica-privacidad.html">Política de Privacidad</a>
+                    <a href="politica-cookies.html">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/cookies.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+{
+    "vehicles": [
+        {
+            "id": 1,
+            "category": "camiones",
+            "title": "RENAULT T 520 4X2 Euro 6 Step E",
+            "brand": "Renault Trucks",
+            "image": "images/vehicles/renault-t-520.jpg",
+            "gallery": [
+                "images/vehicles/renault-t-520.jpg",
+                "images/camion1.jpeg",
+                "images/camion2.jpeg",
+                "images/renault-truck.jpg"
+            ],
+            "badge": "OFERTA",
+            "km": "576884",
+            "year": "2021",
+            "power": "520",
+            "euro": "Euro 6",
+            "priceOld": "54000",
+            "priceCurrent": "48000",
+            "description": "Camión tractora Renault T 520 en excelente estado, con todas las revisiones al día y listo para trabajar. Motor potente y fiable, cabina cómoda con todos los extras. Historial completo de mantenimiento disponible.",
+            "features": [
+                "Vehículo revisado y certificado",
+                "ITV en vigor hasta 2026",
+                "Garantía de 12 meses incluida",
+                "Cabina con litera",
+                "Control de crucero adaptativo",
+                "Sistema de frenado ABS + EBS",
+                "Aire acondicionado automático",
+                "Cámara de marcha atrás",
+                "Ordenador de a bordo",
+                "Posibilidad de financiación"
+            ],
+            "featured": true
+        },
+        {
+            "id": 2,
+            "category": "camiones",
+            "title": "RENAULT T High 480 4X2 Euro 6 Step E",
+            "brand": "Renault Trucks",
+            "image": "images/vehicles/renault-t-480.jpg",
+            "gallery": [
+                "images/vehicles/renault-t-480.jpg",
+                "images/renault-truck.jpg",
+                "images/camion1.jpeg",
+                "images/camion2.jpeg"
+            ],
+            "badge": "RESERVADO",
+            "km": "567000",
+            "year": "2022",
+            "power": "480",
+            "euro": "Euro 6",
+            "priceCurrent": "64000",
+            "description": "Vehículo reservado. Renault T High en perfectas condiciones, con mantenimiento oficial Renault Trucks. Cabina alta con todas las comodidades para rutas de larga distancia.",
+            "features": [
+                "Vehículo reservado",
+                "Cabina alta con litera XXL",
+                "Sistema Optiroll integrado",
+                "Nevera incorporada",
+                "Calefacción estacionaria",
+                "Sistema multimedia completo",
+                "Asientos con suspensión neumática",
+                "Luces LED de serie",
+                "Mantenimiento oficial",
+                "Próxima entrega programada"
+            ],
+            "featured": true
+        },
+        {
+            "id": 1784388774842,
+            "category": "camiones",
+            "title": "Camión Renault Premium 460",
+            "brand": "Renault Trucks",
+            "image": "images/camion1.jpeg",
+            "gallery": [
+                "images/camion1.jpeg",
+                "images/camion2.jpeg",
+                "images/renault-truck.jpg"
+            ],
+            "badge": "OFERTA",
+            "km": "156000",
+            "year": "2022",
+            "power": "500",
+            "euro": "Euro 6",
+            "priceOld": "60000",
+            "priceCurrent": "54000",
+            "description": "Vehículo de ocasión Renault en excelente estado. Ideal para transporte de larga distancia. Motor potente y económico, bajo consumo de combustible. Perfecto para profesionales exigentes.",
+            "features": [
+                "Revisión completa realizada",
+                "ITV pasada recientemente",
+                "Garantía de 6 meses",
+                "Bajo consumo de combustible",
+                "Cabina espaciosa",
+                "Climatizador automático",
+                "Sistema de navegación GPS",
+                "Bluetooth integrado",
+                "Mantenimiento al día",
+                "Financiación disponible"
+            ],
+            "featured": false
+        }
+    ]
+}
