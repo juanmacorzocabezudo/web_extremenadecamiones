@@ -40,8 +40,11 @@ class VehicleManager {
                     "year": "2021",
                     "power": "520",
                     "euro": "Euro 6",
+                    "tonnage": "26",
                     "priceOld": "54000",
                     "priceCurrent": "48000",
+                    "commercial": "Departamento Comercial",
+                    "phone": "924371718",
                     "description": "Camión tractora Renault T 520 en excelente estado, con todas las revisiones al día y listo para trabajar. Motor potente y fiable, cabina cómoda con todos los extras. Historial completo de mantenimiento disponible.",
                     "features": [
                         "Vehículo revisado y certificado",
@@ -74,7 +77,10 @@ class VehicleManager {
                     "year": "2022",
                     "power": "480",
                     "euro": "Euro 6",
+                    "tonnage": "26",
                     "priceCurrent": "64000",
+                    "commercial": "Departamento Comercial",
+                    "phone": "924371718",
                     "description": "Vehículo reservado. Renault T High en perfectas condiciones, con mantenimiento oficial Renault Trucks. Cabina alta con todas las comodidades para rutas de larga distancia.",
                     "features": [
                         "Vehículo reservado",
@@ -106,8 +112,11 @@ class VehicleManager {
                     "year": "2022",
                     "power": "500",
                     "euro": "Euro 6",
+                    "tonnage": "18",
                     "priceOld": "60000",
                     "priceCurrent": "54000",
+                    "commercial": "Departamento Comercial",
+                    "phone": "924371718",
                     "description": "Vehículo de ocasión Renault en excelente estado. Ideal para transporte de larga distancia. Motor potente y económico, bajo consumo de combustible. Perfecto para profesionales exigentes.",
                     "features": [
                         "Revisión completa realizada",
@@ -248,12 +257,24 @@ class VehicleManager {
                 <span>${vehicle.euro}</span>
             </div>
             <div class="spec-item">
+                <strong>Toneladas</strong>
+                <span>${vehicle.tonnage || 'N/D'} t</span>
+            </div>
+            <div class="spec-item">
                 <strong>Marca</strong>
                 <span>${vehicle.brand}</span>
             </div>
             <div class="spec-item">
                 <strong>Estado</strong>
                 <span>${vehicle.badge || 'Disponible'}</span>
+            </div>
+            <div class="spec-item">
+                <strong>Comercial</strong>
+                <span>${vehicle.commercial || 'No especificado'}</span>
+            </div>
+            <div class="spec-item">
+                <strong>Teléfono</strong>
+                <span>${vehicle.phone || 'No especificado'}</span>
             </div>
         `;
         
@@ -299,6 +320,32 @@ class VehicleManager {
         ];
         
         featuresList.innerHTML = features.map(f => `<li>${f}</li>`).join('');
+
+        // Botones de contacto dinámicos según el teléfono del vehículo
+        const callBtn = document.getElementById('modalCallBtn');
+        const whatsappBtn = document.getElementById('modalWhatsappBtn');
+        const phoneForTel = this.normalizePhoneForTel(vehicle.phone);
+        const phoneForWhatsApp = this.normalizePhoneForWhatsApp(vehicle.phone);
+        const message = encodeURIComponent(`Hola, estoy interesado en el vehículo ${vehicle.title}`);
+
+        if (callBtn) {
+            if (phoneForTel) {
+                callBtn.href = `tel:${phoneForTel}`;
+                callBtn.style.display = 'flex';
+            } else {
+                callBtn.href = 'tel:+34924371718';
+                callBtn.style.display = 'flex';
+            }
+        }
+
+        if (whatsappBtn) {
+            if (phoneForWhatsApp) {
+                whatsappBtn.href = `https://wa.me/${phoneForWhatsApp}?text=${message}`;
+                whatsappBtn.style.display = 'flex';
+            } else {
+                whatsappBtn.style.display = 'none';
+            }
+        }
         
         // Mostrar modal
         console.log('Agregando clase active al modal');
@@ -342,6 +389,9 @@ class VehicleManager {
         card.className = 'vehicle-card';
         card.setAttribute('data-category', vehicle.category);
 
+        const commercial = vehicle.commercial || 'No especificado';
+        const phone = vehicle.phone || 'No especificado';
+
         const priceOldHTML = vehicle.priceOld ? 
             `<span class="price-old">${this.formatPrice(vehicle.priceOld)}</span>` : '';
 
@@ -370,8 +420,16 @@ class VehicleManager {
                         <span>${vehicle.power} CV</span>
                     </div>
                     <div class="vehicle-spec">
-                        <strong>Euro:</strong>
-                        <span>${vehicle.euro}</span>
+                        <strong>Toneladas:</strong>
+                        <span>${vehicle.tonnage || 'N/D'} t</span>
+                    </div>
+                    <div class="vehicle-spec">
+                        <strong>Comercial:</strong>
+                        <span>${commercial}</span>
+                    </div>
+                    <div class="vehicle-spec">
+                        <strong>Teléfono:</strong>
+                        <span>${phone}</span>
                     </div>
                 </div>
                 <div class="vehicle-price">
@@ -411,6 +469,52 @@ class VehicleManager {
 
     formatKm(km) {
         return `${parseInt(km).toLocaleString('es-ES')} km`;
+    }
+
+    normalizePhoneForTel(phone) {
+        if (!phone) {
+            return '';
+        }
+
+        const raw = String(phone).trim();
+        const hasPlus = raw.startsWith('+');
+        const digits = raw.replace(/\D/g, '');
+
+        if (!digits) {
+            return '';
+        }
+
+        if (hasPlus) {
+            return `+${digits}`;
+        }
+
+        if (digits.length === 9) {
+            return `+34${digits}`;
+        }
+
+        return `+${digits}`;
+    }
+
+    normalizePhoneForWhatsApp(phone) {
+        if (!phone) {
+            return '';
+        }
+
+        let digits = String(phone).replace(/\D/g, '');
+
+        if (!digits) {
+            return '';
+        }
+
+        if (digits.startsWith('00')) {
+            digits = digits.slice(2);
+        }
+
+        if (digits.length === 9) {
+            return `34${digits}`;
+        }
+
+        return digits;
     }
 }
 

@@ -200,8 +200,9 @@
     <section class="content-section">
         <div class="policy-container">
             <div class="policy-document">
-                <h1 class="policy-title">POLÍTICA DE CALIDAD EXTREMEÑA DE CAMIONES 2026</h1>
+                <h1 class="policy-title" id="policyTitle">POLÍTICA DE CALIDAD EXTREMEÑA DE CAMIONES 2026</h1>
                 
+                <div id="policyContent">
                 <p class="policy-intro-text">La política de calidad fijada por el director Gerente de Renault Trucks España S.L., a cuya Red de Concesionarios pertenecemos, contribuye a que la Marca sea reconocida como innovadora, eficaz y afectiva y subraya que se articula sobre 4 ejes estratégicos:</p>
                 
                 <div class="policy-list">
@@ -238,11 +239,13 @@
                     <p class="policy-name">Daniel López Hernández</p>
                     <p class="policy-role">Gerente</p>
                 </div>
+                </div>
             </div>
             
             <a href="presentacion.html" class="back-link">← Volver a Empresa</a>
         </div>
     </section>
+
 
     <!-- Footer -->
     <footer class="footer">
@@ -289,5 +292,27 @@
 
     <script src="js/main.js"></script>
     <script src="js/cookies.js"></script>
+    <script>
+        // Cargar título y contenido de la política de calidad desde el panel de administración
+        (async function loadQualityPolicy() {
+            try {
+                const response = await fetch('php/get_quality_policy.php');
+                if (!response.ok) {
+                    throw new Error('Error HTTP: ' + response.status);
+                }
+                const data = await response.json();
+                if (data.success) {
+                    if (data.title) {
+                        document.getElementById('policyTitle').textContent = data.title;
+                    }
+                    if (data.content) {
+                        document.getElementById('policyContent').innerHTML = data.content;
+                    }
+                }
+            } catch (error) {
+                console.log('No se pudo cargar la política de calidad dinámica, se muestra el contenido por defecto:', error.message);
+            }
+        })();
+    </script>
 </body>
 </html>

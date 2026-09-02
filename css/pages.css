@@ -1550,15 +1550,30 @@
 
 .vehicle-modal-actions {
     display: flex;
+    flex-direction: column;
     gap: 15px;
     padding-top: 20px;
     border-top: 2px solid var(--color-light);
 }
 
 .vehicle-modal-actions .btn {
-    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 15px 30px;
+    white-space: nowrap;
+}
+
+.btn-whatsapp {
+    gap: 12px;
+}
+
+.btn-whatsapp svg {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
 }
 
 .btn-secondary {
