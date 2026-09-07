@@ -155,7 +155,7 @@ Los enlaces ahora apuntan a:
 ## 📝 Datos de la Empresa
 
 **Razón Social:** EXTREMEÑA DE CAMIONS S.A.  
-**Dirección:** Calle Zaragoza, 21. Polígono Industrial El Prado. 06800 Mérida, Badajoz.  
+**Dirección:** Pol. Ind. El Prado, C/ Zaragoza, 21. 06800 Mérida, Badajoz.
 **Teléfono:** 924 37 17 18  
 **Email:** info@extremenadecamiones.es
 
@@ -192,7 +192,7 @@ Los usuarios pueden ejercer los siguientes derechos:
 
 **Contacto para ejercer derechos:**
 - Email: info@extremenadecamiones.es
-- Dirección: Calle Zaragoza, 21. Pol. Industrial El Prado. 06800 Mérida, Badajoz.
+- Dirección: Pol. Ind. El Prado, C/ Zaragoza, 21. 06800 Mérida, Badajoz.
 
 ---
 

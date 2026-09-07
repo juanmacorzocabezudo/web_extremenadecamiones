@@ -29,6 +29,14 @@ Si tienes Apache instalado en macOS:
 2. Inicia Apache: `sudo apachectl start`
 3. Accede a: http://localhost/Web/index.html
 
+## Configuración del formulario de contacto
+
+El formulario usa SMTP autenticado de Arsys y necesita el archivo `config.local.php` en la raíz del sitio. Este archivo está excluido de Git por seguridad, por lo que hay que subirlo manualmente al hosting junto con el resto de los archivos.
+
+Debe contener la configuración SMTP de `info@extremenadecamiones.es`, con el servidor `smtp.serviciodecorreo.es`, el puerto `465`, la contraseña de la cuenta y el destinatario interno `jmcorzo@revolapps.es`.
+
+Si el formulario sigue mostrando un error después de subirlo, revisa el `error_log` del hosting: el endpoint registra si falta la configuración o en qué fase responde con error el servidor SMTP.
+
 ## Credenciales del Admin
 
 - **Usuario**: extremena

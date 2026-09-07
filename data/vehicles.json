@@ -3,14 +3,14 @@
         {
             "id": 1,
             "category": "camiones",
-            "title": "RENAULT T 520 4X2 Euro 6 Step E",
+            "title": "RENAULT T ",
             "brand": "Renault Trucks",
-            "image": "images/vehicles/renault-t-520.jpg",
+            "image": "images\/vehicles\/renault-t-520.jpg",
             "gallery": [
-                "images/vehicles/renault-t-520.jpg",
-                "images/camion1.jpeg",
-                "images/camion2.jpeg",
-                "images/renault-truck.jpg"
+                "images\/vehicles\/renault-t-520.jpg",
+                "images\/camion1.jpeg",
+                "images\/camion2.jpeg",
+                "images\/renault-truck.jpg"
             ],
             "badge": "OFERTA",
             "km": "576884",
@@ -28,12 +28,7 @@
                 "ITV en vigor hasta 2026",
                 "Garantía de 12 meses incluida",
                 "Cabina con litera",
-                "Control de crucero adaptativo",
-                "Sistema de frenado ABS + EBS",
-                "Aire acondicionado automático",
-                "Cámara de marcha atrás",
-                "Ordenador de a bordo",
-                "Posibilidad de financiación"
+                "Control de crucero adaptativo"
             ],
             "featured": true
         },
@@ -42,12 +37,12 @@
             "category": "camiones",
             "title": "RENAULT T High 480 4X2 Euro 6 Step E",
             "brand": "Renault Trucks",
-            "image": "images/vehicles/renault-t-480.jpg",
+            "image": "images\/vehicles\/renault-t-480.jpg",
             "gallery": [
-                "images/vehicles/renault-t-480.jpg",
-                "images/renault-truck.jpg",
-                "images/camion1.jpeg",
-                "images/camion2.jpeg"
+                "images\/vehicles\/renault-t-480.jpg",
+                "images\/renault-truck.jpg",
+                "images\/camion1.jpeg",
+                "images\/camion2.jpeg"
             ],
             "badge": "RESERVADO",
             "km": "567000",
@@ -78,11 +73,11 @@
             "category": "camiones",
             "title": "Camión Renault Premium 460",
             "brand": "Renault Trucks",
-            "image": "images/camion1.jpeg",
+            "image": "images\/camion1.jpeg",
             "gallery": [
-                "images/camion1.jpeg",
-                "images/camion2.jpeg",
-                "images/renault-truck.jpg"
+                "images\/camion1.jpeg",
+                "images\/camion2.jpeg",
+                "images\/renault-truck.jpg"
             ],
             "badge": "OFERTA",
             "km": "156000",
@@ -108,6 +103,117 @@
                 "Financiación disponible"
             ],
             "featured": false
+        },
+        {
+            "id": 1788791180101,
+            "category": "furgonetas",
+            "title": "Renault Trafic",
+            "brand": "Renault Trucks",
+            "image": "images\/vehicles\/vehicle_1788791180_6a9ec98c170a1.jpeg",
+            "gallery": [
+                "images\/vehicles\/vehicle_1788791180_6a9ec98c18612.jpeg"
+            ],
+            "badge": "OFERTA",
+            "km": "124500",
+            "year": "2024",
+            "power": "150",
+            "euro": "Euro 3",
+            "tonnage": "1",
+            "priceOld": null,
+            "priceCurrent": "24000",
+            "commercial": "Fernado",
+            "phone": "678078987",
+            "description": "Como nueva.",
+            "features": [
+                "Certificado",
+                "ITV hasta 2029",
+                "Financiación."
+            ],
+            "featured": true
+        },
+        {
+            "id": 1788792352140,
+            "category": "camiones",
+            "title": "Renault 1",
+            "brand": "Renault Trucks",
+            "image": "images\/vehicles\/vehicle_1788792352_6a9ece2021ce7.jpeg",
+            "gallery": [
+                "images\/vehicles\/vehicle_1788792352_6a9ece2021ce7.jpeg"
+            ],
+            "badge": "OFERTA",
+            "km": "189000",
+            "year": "2024",
+            "power": "180",
+            "euro": "Euro 3",
+            "tonnage": "24",
+            "priceOld": "65000",
+            "priceCurrent": "60000",
+            "commercial": "Prueba",
+            "phone": "678765456",
+            "description": "Hola",
+            "features": [
+                "Vehículo revisado",
+                "ITV al día",
+                "Garantía incluida",
+                "Posibilidad de financiación"
+            ],
+            "featured": true
+        },
+        {
+            "id": 1788792413756,
+            "category": "camiones",
+            "title": "Renault 2",
+            "brand": "Renault Trucks",
+            "image": "images\/vehicles\/vehicle_1788792413_6a9ece5db8037.jpeg",
+            "gallery": [
+                "images\/vehicles\/vehicle_1788792413_6a9ece5db8037.jpeg"
+            ],
+            "badge": "OFERTA",
+            "km": "156000",
+            "year": "2025",
+            "power": "250",
+            "euro": "Euro 3",
+            "tonnage": "45",
+            "priceOld": "11500",
+            "priceCurrent": "12000",
+            "commercial": "Prueba",
+            "phone": "678098789",
+            "description": "Prueba.",
+            "features": [
+                "Vehículo revisado",
+                "ITV al día",
+                "Garantía incluida",
+                "Posibilidad de financiación"
+            ],
+            "featured": true
+        },
+        {
+            "id": 1788792470870,
+            "category": "camiones",
+            "title": "Manitou 5",
+            "brand": "Manitou",
+            "image": "images\/vehicles\/vehicle_1788792470_6a9ece96d41a8.jpeg",
+            "gallery": [
+                "images\/vehicles\/vehicle_1788792470_6a9ece96d41a8.jpeg"
+            ],
+            "badge": "OFERTA",
+            "km": "129000",
+            "year": "2021",
+            "power": "280",
+            "euro": "Euro 3",
+            "tonnage": "60",
+            "priceOld": "21000",
+            "priceCurrent": "22000",
+            "commercial": "Juan",
+            "phone": "654567890",
+            "description": "Prueba.",
+            "features": [
+                "Vehículo revisado",
+                "ITV al día",
+                "Garantía incluida",
+                "Posibilidad de financiación"
+            ],
+            "featured": true
         }
     ]
 }

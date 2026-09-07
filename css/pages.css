@@ -129,6 +129,45 @@
     width: 100%;
 }
 
+.content-image .brand-content-logo {
+    height: 360px;
+    object-fit: contain;
+    padding: 40px;
+    background: var(--color-white);
+}
+
+.brand-content-logo-pair {
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 40px;
+    background: var(--color-white);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.brand-content-logo-pair img {
+    max-width: 100%;
+    max-height: 125px;
+    object-fit: contain;
+}
+
+.renault-model-year-image {
+    max-width: 900px;
+    margin: 0 auto 45px;
+}
+
+.renault-model-year-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
 /* Brand Logo Section */
 .brand-logo-section {
     text-align: center;
@@ -651,7 +690,8 @@
 @media (max-width: 768px) {
     .page-header {
         height: 160px;
-        margin: 20px;
+        margin: 20px 15px;
+        max-width: calc(100% - 30px);
         border-radius: 15px;
     }
     
@@ -689,7 +729,8 @@
 @media (max-width: 480px) {
     .page-header {
         height: 140px;
-        margin: 15px;
+        margin: 15px 10px;
+        max-width: calc(100% - 20px);
         border-radius: 12px;
     }
     
@@ -1155,7 +1196,7 @@
 
 .brand-card-image {
     padding: 40px;
-    background: var(--color-bg);
+    background: var(--color-white);
     text-align: center;
     min-height: 180px;
     display: flex;
@@ -1182,6 +1223,34 @@
 .brand-card-content p {
     font-size: 15px;
     color: var(--color-text-light);
+}
+
+.vehicle-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 35px;
+}
+
+.pagination-button {
+    min-width: 40px;
+    height: 40px;
+    padding: 0 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-white);
+    color: var(--color-secondary);
+    cursor: pointer;
+    font: inherit;
+    transition: var(--transition);
+}
+
+.pagination-button:hover,
+.pagination-button.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
 }
 
 /* Stats Item */
@@ -1815,7 +1884,8 @@
     /* Page Header */
     .page-header {
         height: 180px;
-        margin: 12px;
+        margin: 15px 10px;
+        max-width: calc(100% - 20px);
         border-radius: 12px;
     }
     
@@ -1881,6 +1951,21 @@
     .brand-logo-section {
         padding: 30px 0;
         margin-bottom: 30px;
+    }
+
+    .content-image .brand-content-logo {
+        height: 220px;
+        padding: 25px;
+    }
+
+    .brand-content-logo-pair {
+        height: 220px;
+        gap: 15px;
+        padding: 25px;
+    }
+
+    .brand-content-logo-pair img {
+        max-height: 75px;
     }
     
     /* Locations */
@@ -2068,7 +2153,8 @@
 @media (max-width: 375px) {
     .page-header {
         height: 150px;
-        margin: 8px;
+        margin: 10px 5px;
+        max-width: calc(100% - 10px);
     }
     
     .page-title {

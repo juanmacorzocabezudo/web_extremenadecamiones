@@ -250,14 +250,14 @@ if (contactForm) {
             const result = await response.json();
 
             if (result.success) {
-                alert('¡Mensaje enviado correctamente! Nos pondremos en contacto con usted pronto.');
+                alert('Mensaje enviado correctamente. Nos pondremos en contacto con usted pronto.');
                 contactForm.reset();
             } else {
-                alert('Error al enviar el mensaje. Por favor, inténtelo de nuevo.');
+                alert(result.message || 'Error al enviar el mensaje. Por favor, inténtelo de nuevo.');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al enviar el mensaje. Por favor, inténtelo de nuevo.');
+            alert('No se ha podido conectar con el servidor. Abra la web desde http://127.0.0.1:8000/index.html.');
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
@@ -301,21 +301,9 @@ class VehicleFilter {
     }
 
     filterVehicles(filter) {
-        this.vehicles.forEach(vehicle => {
-            if (filter === 'all' || vehicle.dataset.category === filter) {
-                vehicle.style.display = 'block';
-                setTimeout(() => {
-                    vehicle.style.opacity = '1';
-                    vehicle.style.transform = 'scale(1)';
-                }, 10);
-            } else {
-                vehicle.style.opacity = '0';
-                vehicle.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    vehicle.style.display = 'none';
-                }, 300);
-            }
-        });
+        document.dispatchEvent(new CustomEvent('vehicleFilterChanged', {
+            detail: { filter }
+        }));
     }
 }
 

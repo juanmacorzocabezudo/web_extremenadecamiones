@@ -6,7 +6,11 @@ console.log('vehicles.js cargado');
 class VehicleManager {
     constructor() {
         this.vehiclesContainer = document.getElementById('vehiclesContainer');
+        this.paginationContainer = document.getElementById('vehiclePagination');
         this.vehicles = [];
+        this.currentFilter = 'all';
+        this.currentPage = 1;
+        this.pageSize = 6;
         this.modal = document.getElementById('vehicleModal');
         
         console.log('VehicleManager inicializado');
@@ -15,7 +19,29 @@ class VehicleManager {
         
         if (this.vehiclesContainer) {
             this.setupModal();
+            this.setupPagination();
             this.loadVehicles();
+        }
+    }
+
+    setupPagination() {
+        document.addEventListener('vehicleFilterChanged', (event) => {
+            this.currentFilter = event.detail.filter;
+            this.currentPage = 1;
+            this.renderCurrentPage();
+        });
+
+        if (this.paginationContainer) {
+            this.paginationContainer.addEventListener('click', (event) => {
+                const pageButton = event.target.closest('[data-page]');
+                if (!pageButton) {
+                    return;
+                }
+
+                this.currentPage = Number(pageButton.dataset.page);
+                this.renderCurrentPage();
+                this.vehiclesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
         }
     }
 
@@ -367,15 +393,30 @@ class VehicleManager {
         }
 
         console.log(`Renderizando ${vehicles.length} vehículos`);
+        this.vehicles = vehicles;
+        this.currentPage = 1;
+        this.renderCurrentPage();
+    }
+
+    renderCurrentPage() {
+        const filteredVehicles = this.currentFilter === 'all'
+            ? this.vehicles
+            : this.vehicles.filter(vehicle => vehicle.category === this.currentFilter);
+        const totalPages = Math.max(1, Math.ceil(filteredVehicles.length / this.pageSize));
+        this.currentPage = Math.min(this.currentPage, totalPages);
+        const startIndex = (this.currentPage - 1) * this.pageSize;
+        const visibleVehicles = filteredVehicles.slice(startIndex, startIndex + this.pageSize);
 
         // Limpiar contenedor
         this.vehiclesContainer.innerHTML = '';
 
         // Renderizar cada vehículo
-        vehicles.forEach(vehicle => {
+        visibleVehicles.forEach(vehicle => {
             const vehicleCard = this.createVehicleCard(vehicle);
             this.vehiclesContainer.appendChild(vehicleCard);
         });
+
+        this.renderPagination(totalPages);
 
         console.log('Vehículos renderizados correctamente');
 
@@ -384,13 +425,37 @@ class VehicleManager {
         document.dispatchEvent(event);
     }
 
+    renderPagination(totalPages) {
+        if (!this.paginationContainer) {
+            return;
+        }
+
+        if (totalPages <= 1) {
+            this.paginationContainer.innerHTML = '';
+            this.paginationContainer.hidden = true;
+            return;
+        }
+
+        this.paginationContainer.hidden = false;
+        let paginationHTML = '';
+        if (this.currentPage > 1) {
+            paginationHTML += `<button type="button" class="pagination-button" data-page="${this.currentPage - 1}">Anterior</button>`;
+        }
+
+        for (let page = 1; page <= totalPages; page += 1) {
+            paginationHTML += `<button type="button" class="pagination-button ${page === this.currentPage ? 'active' : ''}" data-page="${page}" aria-label="Página ${page}" ${page === this.currentPage ? 'aria-current="page"' : ''}>${page}</button>`;
+        }
+
+        if (this.currentPage < totalPages) {
+            paginationHTML += `<button type="button" class="pagination-button" data-page="${this.currentPage + 1}">Siguiente</button>`;
+        }
+        this.paginationContainer.innerHTML = paginationHTML;
+    }
+
     createVehicleCard(vehicle) {
         const card = document.createElement('div');
         card.className = 'vehicle-card';
         card.setAttribute('data-category', vehicle.category);
-
-        const commercial = vehicle.commercial || 'No especificado';
-        const phone = vehicle.phone || 'No especificado';
 
         const priceOldHTML = vehicle.priceOld ? 
             `<span class="price-old">${this.formatPrice(vehicle.priceOld)}</span>` : '';
@@ -422,14 +487,6 @@ class VehicleManager {
                     <div class="vehicle-spec">
                         <strong>Toneladas:</strong>
                         <span>${vehicle.tonnage || 'N/D'} t</span>
-                    </div>
-                    <div class="vehicle-spec">
-                        <strong>Comercial:</strong>
-                        <span>${commercial}</span>
-                    </div>
-                    <div class="vehicle-spec">
-                        <strong>Teléfono:</strong>
-                        <span>${phone}</span>
                     </div>
                 </div>
                 <div class="vehicle-price">
