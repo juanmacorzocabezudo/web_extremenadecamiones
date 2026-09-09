@@ -58,7 +58,7 @@ $safeSubject = htmlspecialchars($subjectText, ENT_QUOTES, 'UTF-8');
 
 $notificationHtml = buildEmailHtml(
     'Nuevo mensaje desde la web',
-    '<p>Ha recibido una nueva consulta desde el formulario de contacto.</p>' .
+    '<p>Ha recibido una nueva consulta desde el <span style="white-space:nowrap;">formulario</span> de contacto.</p>' .
     '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:20px;">' .
     '<tr><th align="left" style="padding:10px;border-bottom:1px solid #ddd;color:#666;width:120px;">Nombre</th><td style="padding:10px;border-bottom:1px solid #ddd;">' . $safeName . '</td></tr>' .
     '<tr><th align="left" style="padding:10px;border-bottom:1px solid #ddd;color:#666;width:120px;">Email</th><td style="padding:10px;border-bottom:1px solid #ddd;">' . $safeEmail . '</td></tr>' .
@@ -71,7 +71,7 @@ $notificationHtml = buildEmailHtml(
 $confirmationHtml = buildEmailHtml(
     'Gracias por contactar con nosotros',
     '<p>Estimado/a ' . $safeName . ':</p>' .
-    '<p>Hemos recibido correctamente su mensaje. En breve nos pondremos en contacto con usted.</p>' .
+    '<p><span style="white-space:nowrap;">Hemos</span> recibido correctamente su mensaje. En breve nos pondremos en contacto con usted.</p>' .
     '<p>Gracias por confiar en Extremeña de Camiones.</p>'
 );
 
