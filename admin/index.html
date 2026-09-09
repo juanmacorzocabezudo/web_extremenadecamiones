@@ -368,10 +368,19 @@
                         <div class="form-group">
                             <label for="brand">Marca *</label>
                             <select id="brand" name="brand" required>
-                                <option value="Renault Trucks">Renault Trucks</option>
-                                <option value="Manitou">Manitou</option>
+                                <option value="Daf">Daf</option>
+                                <option value="Ford Trucks">Ford Trucks</option>
+                                <option value="Iveco">Iveco</option>
+                                <option value="JCB">JCB</option>
                                 <option value="Landini">Landini</option>
+                                <option value="Man">Man</option>
+                                <option value="Manitou">Manitou</option>
                                 <option value="McCormick">McCormick</option>
+                                <option value="Mercedes">Mercedes</option>
+                                <option value="Merlo">Merlo</option>
+                                <option value="Renault Trucks">Renault Trucks</option>
+                                <option value="Scania">Scania</option>
+                                <option value="Volvo">Volvo</option>
                                 <option value="Otros">Otros</option>
                             </select>
                         </div>
@@ -665,10 +674,10 @@
                 }
             }
             
-            // Si todo falla, usar datos de fallback
-            console.log('Usando datos de fallback embebidos');
-            currentVehicles = fallbackVehicles;
-            displayVehicles(fallbackVehicles);
+            // Sin datos remotos, mantener el panel vacío hasta una carga manual
+            console.log('No hay vehículos disponibles');
+            currentVehicles = [];
+            displayVehicles([]);
         }
 
         function displayVehicles(vehicles) {
@@ -1083,43 +1092,8 @@
 
         // Política de Calidad
         const fallbackQualityPolicy = {
-            title: 'POLÍTICA DE CALIDAD EXTREMEÑA DE CAMIONES 2026',
-            content: `<p class="policy-intro-text">La política de calidad fijada por el director Gerente de Renault Trucks España S.L., a cuya Red de Concesionarios pertenecemos, contribuye a que la Marca sea reconocida como innovadora, eficaz y afectiva y subraya que se articula sobre 4 ejes estratégicos:</p>
-
-<div class="policy-list">
-    <p class="policy-item"><strong>1. La orientación al cliente</strong>, ofreciendo los nuevos productos/servicios y pilotando su desarrollo para lograr la satisfacción del cliente.</p>
-    
-    <p class="policy-item"><strong>2. El compromiso de todos los managers</strong>, a través de herramientas de trabajo como el Plan operativo, y aplicando una política dinámica de recursos humanos basados en la participación, la comunicación y la motivación en su organización.</p>
-    
-    <p class="policy-item"><strong>3. La gestión por procesos</strong>, utilizando todos los sistemas de comunicación y estándares del Grupo Renault Trucks.</p>
-    
-    <p class="policy-item"><strong>4. El cumplimiento y la participación de cada uno</strong>, los medios necesarios para desarrollar bien su función y poder asumir la responsabilidad de la calidad de su trabajo.</p>
-</div>
-
-<p class="policy-text">El sentido de la palabra "Calidad", engloba el núcleo de la política de nuestra Organización coincidiendo en lo que ha sido siempre la manera de ser de nuestra empresa, determinando como principios:</p>
-
-<ul class="policy-bullets">
-    <li><strong>Satisfacción de nuestros clientes</strong>.</li>
-    <li><strong>Progreso y crecimiento continuo</strong>.</li>
-</ul>
-
-<p class="policy-text">Las normas y definiciones sobre la Calidad se concretan en la certificación de:</p>
-
-<p class="policy-certification"><strong><em>UNE en ISO 9001:2015 Y LA NORMA DE TACÓGRAFO DIGITAL UNE: 66102:2025</em></strong></p>
-
-<p class="policy-text">Nuestro compromiso se centra en la aplicación de esta política de calidad total, y el cumplimiento de los objetivos para así conseguir y mantener el proyecto de certificación que reconoce oficialmente lo que somos, un equipo de personas al servicio de nuestros clientes, que les dan confianza.</p>
-
-<p class="policy-text">Otros de las marcas fundamentales es la superación de todos los objetivos aprobados para el ejercicio 2025, manteniendo todos los índices establecidos por la certificación UNE EN ISO 9001:2015, y la norma UNE 66102:2025 de los tacógrafos digitales.</p>
-
-<p class="policy-text">En efecto, la calidad de nuestro saber hacer, hoy en mañana, es la mejor garantía de futuro para todos.<br>EL motor principal de la empresa: contar con cada uno de vosotros para que todos juntos consigamos nuestros objetivos para 2026.</p>
-
-<p class="policy-commitment"><strong>LA OBTENCIÓN Y MANTENIMIENTO DE LA CERTIFICACIÓN UNE EN ISO 9001:2015 DE NUESTRA ORGANIZACIÓN ASÍ COMO LA CERTICACIÓN EN LA NORMA UNE: 66102:2025</strong></p>
-
-<div class="policy-signature">
-    <p class="policy-date">Mérida a 25 de Febrero de 2026</p>
-    <p class="policy-name">Daniel López Hernández</p>
-    <p class="policy-role">Gerente</p>
-</div>`
+            title: '',
+            content: ''
         };
 
         async function loadQualityPolicy() {

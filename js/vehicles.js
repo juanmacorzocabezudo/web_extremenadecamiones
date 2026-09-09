@@ -195,9 +195,9 @@ class VehicleManager {
             console.log('JSON no disponible:', error.message);
         }
 
-        // Si todo falla, usar datos embebidos
-        console.log('Usando datos embebidos (fallback)');
-        this.vehicles = fallbackData.vehicles;
+        // Sin datos remotos, mantener la web vacía hasta una carga manual.
+        console.log('No hay vehículos disponibles');
+        this.vehicles = [];
         this.renderVehicles(this.vehicles);
     }
 

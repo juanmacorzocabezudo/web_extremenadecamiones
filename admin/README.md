@@ -21,7 +21,7 @@
 #### Añadir Nuevo Vehículo
 Formulario completo con los siguientes campos:
 - **Categoría:** Camiones, Furgonetas, Maquinaria, Tractores
-- **Marca:** Renault Trucks, Manitou, Landini, McCormick, Otros
+- **Marca:** Daf, Ford Trucks, Iveco, JCB, Landini, Man, Manitou, McCormick, Mercedes, Merlo, Renault Trucks, Scania, Volvo, Otros
 - **Título del Vehículo**
 - **Año** (1990-2030)
 - **Kilómetros**
