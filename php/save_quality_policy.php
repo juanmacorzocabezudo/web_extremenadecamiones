@@ -23,9 +23,18 @@ try {
         'content' => $policy_data['content']
     );
 
-    $json_file = '../data/quality-policy.json';
+    $data_directory = dirname(__DIR__) . '/data';
+    $json_file = $data_directory . '/quality-policy.json';
 
-    if (file_put_contents($json_file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
+    if (!is_dir($data_directory) || !is_writable($data_directory)) {
+        throw new Exception('El servidor no tiene permiso de escritura en la carpeta data');
+    }
+
+    if (file_exists($json_file) && !is_writable($json_file)) {
+        throw new Exception('El servidor no tiene permiso de escritura en quality-policy.json');
+    }
+
+    if (file_put_contents($json_file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false) {
         $response['success'] = true;
         $response['message'] = 'Política de calidad guardada correctamente';
     } else {
