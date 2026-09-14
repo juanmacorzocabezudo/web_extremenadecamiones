@@ -234,6 +234,11 @@ if (contactForm) {
             return;
         }
 
+        if (typeof grecaptcha === 'undefined' || !grecaptcha.getResponse()) {
+            alert('Por favor, complete la verificación de seguridad.');
+            return;
+        }
+
         const formData = new FormData(contactForm);
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
@@ -261,6 +266,7 @@ if (contactForm) {
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
+            grecaptcha.reset();
         }
     });
 }

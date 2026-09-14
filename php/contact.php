@@ -28,6 +28,43 @@ foreach ($requiredConfig as $configKey) {
     }
 }
 
+$honeypot = isset($_POST['website']) ? trim((string) $_POST['website']) : '';
+if ($honeypot !== '') {
+    $response['success'] = true;
+    $response['message'] = 'Mensaje enviado correctamente. Nos pondremos en contacto con usted pronto.';
+    echo json_encode($response);
+    exit;
+}
+
+if (empty($config['recaptcha_secret']) || $config['recaptcha_secret'] === 'TU_CLAVE_SECRETA_RECAPTCHA') {
+    error_log('Contacto web: falta la clave secreta de reCAPTCHA');
+    $response['message'] = 'El servicio de verificación de seguridad no está configurado.';
+    echo json_encode($response);
+    exit;
+}
+
+$recaptchaToken = isset($_POST['g-recaptcha-response']) ? trim((string) $_POST['g-recaptcha-response']) : '';
+$recaptchaResult = verifyRecaptcha($recaptchaToken, $config['recaptcha_secret']);
+if ($recaptchaResult !== true) {
+    $recaptchaMessages = array(
+        'missing-input-response' => 'No se ha recibido la verificación de seguridad. Recargue la página e inténtelo de nuevo.',
+        'invalid-input-secret' => 'La configuración de reCAPTCHA del servidor no es válida.',
+        'invalid-input-response' => 'La verificación de seguridad no es válida o ha caducado. Marque la casilla de nuevo e inténtelo otra vez.',
+        'timeout-or-duplicate' => 'La verificación de seguridad ha caducado o ya se ha utilizado. Marque la casilla de nuevo e inténtelo otra vez.',
+        'connection-failed' => 'El servidor no puede comprobar la verificación de seguridad. Contacte con el administrador del sitio.',
+        'invalid-response' => 'El servicio de verificación ha devuelto una respuesta no válida. Inténtelo de nuevo más tarde.'
+    );
+    if (strpos($recaptchaResult, 'connection-failed:') === 0) {
+        $response['message'] = 'El servidor no puede comprobar la verificación de seguridad. Detalle temporal: ' . substr($recaptchaResult, strlen('connection-failed:'));
+    } else {
+        $response['message'] = isset($recaptchaMessages[$recaptchaResult])
+            ? $recaptchaMessages[$recaptchaResult]
+            : 'No se ha podido validar la verificación de seguridad. Inténtelo de nuevo.';
+    }
+    echo json_encode($response);
+    exit;
+}
+
 $name = isset($_POST['name']) ? trim((string) $_POST['name']) : '';
 $email = isset($_POST['email']) ? filter_var(trim((string) $_POST['email']), FILTER_VALIDATE_EMAIL) : false;
 $phone = isset($_POST['phone']) ? trim((string) $_POST['phone']) : '';
@@ -174,4 +211,62 @@ function normalizeSmtpBody($body) {
 
 function mimeHeader($value) {
     return '=?UTF-8?B?' . base64_encode($value) . '?=';
+}
+
+function verifyRecaptcha($token, $secret) {
+    if ($token === '') {
+        return 'missing-input-response';
+    }
+
+    $payload = http_build_query(array(
+        'secret' => $secret,
+        'response' => $token,
+        'remoteip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''
+    ));
+    $verificationUrl = 'https://www.google.com/recaptcha/api/siteverify';
+    $result = false;
+    $curlError = '';
+
+    if (function_exists('curl_init')) {
+        $curl = curl_init($verificationUrl);
+        curl_setopt_array($curl, array(
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $payload,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => array('Content-Type: application/x-www-form-urlencoded'),
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_TIMEOUT => 10
+        ));
+        $result = curl_exec($curl);
+        if ($result === false) {
+            $curlError = 'cURL ' . curl_errno($curl) . ': ' . curl_error($curl);
+            error_log('Contacto web: error de conexión cURL al validar reCAPTCHA: ' . $curlError);
+        }
+    }
+
+    if ($result === false) {
+        $options = array('http' => array(
+            'method' => 'POST',
+            'header' => "Content-Type: application/x-www-form-urlencoded\r\nContent-Length: " . strlen($payload) . "\r\n",
+            'content' => $payload,
+            'timeout' => 10
+        ));
+        $result = @file_get_contents($verificationUrl, false, stream_context_create($options));
+    }
+
+    if ($result === false) {
+        error_log('Contacto web: no se pudo validar reCAPTCHA');
+        return 'connection-failed:' . ($curlError !== '' ? $curlError : 'file_get_contents no pudo conectar');
+    }
+
+    $verification = json_decode($result, true);
+    if (!is_array($verification) || empty($verification['success'])) {
+        $errorCodes = is_array($verification) && isset($verification['error-codes']) && is_array($verification['error-codes'])
+            ? implode(', ', $verification['error-codes'])
+            : 'respuesta no válida';
+        error_log('Contacto web: reCAPTCHA rechazado: ' . $errorCodes);
+        return $errorCodes === 'respuesta no válida' ? 'invalid-response' : $errorCodes;
+    }
+
+    return true;
 }
