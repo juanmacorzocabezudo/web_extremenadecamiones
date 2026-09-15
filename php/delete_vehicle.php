@@ -4,11 +4,13 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, DELETE');
 header('Access-Control-Allow-Headers: Content-Type');
 
+ini_set('display_errors', '0');
+
 $response = array('success' => false, 'message' => '');
 
 try {
     // Leer el JSON actual
-    $json_file = '../data/vehicles.json';
+    $json_file = __DIR__ . '/../data/vehicles.json';
     
     if (!file_exists($json_file)) {
         throw new Exception('Archivo de datos no encontrado');
@@ -48,7 +50,16 @@ try {
     $data['vehicles'] = array_values($newVehicles);
     
     // Guardar cambios
-    $result = file_put_contents($json_file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    if (!is_writable($json_file)) {
+        throw new Exception('El archivo de vehículos no tiene permisos de escritura');
+    }
+
+    $json_output = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    if ($json_output === false) {
+        throw new Exception('No se pudieron preparar los datos');
+    }
+
+    $result = @file_put_contents($json_file, $json_output, LOCK_EX);
     
     if ($result === false) {
         throw new Exception('Error al guardar los datos');

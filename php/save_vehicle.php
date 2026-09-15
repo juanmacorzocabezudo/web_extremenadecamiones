@@ -2,6 +2,8 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
+ini_set('display_errors', '0');
+
 $response = array('success' => false, 'message' => '');
 
 // Validar método POST
@@ -16,17 +18,25 @@ try {
     $json_input = file_get_contents('php://input');
     $vehicle_data = json_decode($json_input, true);
     
-    if (!$vehicle_data) {
+    if (!is_array($vehicle_data) || !$vehicle_data) {
         throw new Exception('Datos inválidos');
+    }
+
+    if (!isset($vehicle_data['id']) || $vehicle_data['id'] === '') {
+        throw new Exception('El vehículo no tiene un identificador válido');
     }
     
     // Leer archivo JSON existente
-    $json_file = '../data/vehicles.json';
+    $json_file = __DIR__ . '/../data/vehicles.json';
     
     if (!file_exists($json_file)) {
         // Crear archivo si no existe
         $data = array('vehicles' => array());
     } else {
+        if (!is_readable($json_file)) {
+            throw new Exception('El archivo de vehículos no se puede leer');
+        }
+
         $json_content = file_get_contents($json_file);
         $data = json_decode($json_content, true);
         
@@ -51,7 +61,16 @@ try {
     }
     
     // Guardar archivo
-    if (file_put_contents($json_file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
+    if (!is_writable($json_file) && (file_exists($json_file) || !is_writable(dirname($json_file)))) {
+        throw new Exception('El archivo de vehículos no tiene permisos de escritura');
+    }
+
+    $json_output = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    if ($json_output === false) {
+        throw new Exception('No se pudieron preparar los datos del vehículo');
+    }
+
+    if (@file_put_contents($json_file, $json_output, LOCK_EX) !== false) {
         $response['success'] = true;
         $response['message'] = 'Vehículo guardado correctamente';
     } else {

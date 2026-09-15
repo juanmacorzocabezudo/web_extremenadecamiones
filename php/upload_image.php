@@ -2,6 +2,8 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
+ini_set('display_errors', '0');
+
 $response = array('success' => false, 'message' => '', 'filename' => '');
 
 // Validar método POST
@@ -18,11 +20,17 @@ try {
     }
     
     $file = $_FILES['image'];
-    $uploadDir = '../images/vehicles/';
+    $uploadDir = __DIR__ . '/../images/vehicles/';
     
     // Crear directorio si no existe
     if (!file_exists($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
+        if (!mkdir($uploadDir, 0755, true) && !is_dir($uploadDir)) {
+            throw new Exception('No se pudo crear la carpeta de imágenes');
+        }
+    }
+
+    if (!is_writable($uploadDir)) {
+        throw new Exception('La carpeta de imágenes no tiene permisos de escritura');
     }
     
     // Validar tipo de archivo
@@ -47,7 +55,7 @@ try {
     $targetPath = $uploadDir . $filename;
     
     // Mover archivo
-    if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+    if (!@move_uploaded_file($file['tmp_name'], $targetPath)) {
         throw new Exception('Error al guardar la imagen');
     }
     
