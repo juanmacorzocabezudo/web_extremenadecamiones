@@ -36,6 +36,13 @@ if ($honeypot !== '') {
     exit;
 }
 
+$privacyConsent = isset($_POST['privacy_consent']) ? trim((string) $_POST['privacy_consent']) : '';
+if ($privacyConsent !== '1') {
+    $response['message'] = 'Debe aceptar la Política de Privacidad para enviar el formulario.';
+    echo json_encode($response);
+    exit;
+}
+
 if (empty($config['recaptcha_secret']) || $config['recaptcha_secret'] === 'TU_CLAVE_SECRETA_RECAPTCHA') {
     error_log('Contacto web: falta la clave secreta de reCAPTCHA');
     $response['message'] = 'El servicio de verificación de seguridad no está configurado.';
@@ -131,7 +138,7 @@ function buildEmailHtml($title, $content) {
         '<table role="presentation" width="100%" style="max-width:620px;background:#fff;border-radius:8px;overflow:hidden;" cellspacing="0" cellpadding="0">' .
         '<tr><td align="center" style="background:#fff;border-bottom:4px solid #e1000f;padding:18px 30px;"><img src="https://extremenadecamiones.es/images/logoextremena.png" alt="Extremeña de Camiones" width="190" style="display:block;margin:0 auto;width:190px;max-width:100%;height:auto;"></td></tr>' .
         '<tr><td style="padding:30px;line-height:1.6;"><h1 style="margin:0 0 20px;color:#1a1a1a;font-size:25px;">' . htmlspecialchars($title, ENT_QUOTES, 'UTF-8') . '</h1>' . $content . '</td></tr>' .
-        '<tr><td style="background:#f4f4f4;padding:18px 30px;color:#777;font-size:12px;">Pol. Ind. El Prado, C/ Zaragoza, 21 · 06800 Mérida (Badajoz)<br>info@extremenadecamiones.es</td></tr>' .
+        '<tr><td style="background:#f4f4f4;padding:18px 30px;color:#777;font-size:12px;">PG. IND. EL PRADO. C/ ZARAGOZA, 11 · 06008 Mérida (Badajoz)<br>info@extremenadecamiones.es</td></tr>' .
         '</table></td></tr></table></body></html>';
 }
 

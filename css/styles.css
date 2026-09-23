@@ -1655,6 +1655,65 @@ ul {
     color: white;
 }
 
+.cookie-preferences {
+    display: none;
+    margin-top: 16px;
+    padding: 16px;
+    border-top: 1px solid #ddd;
+}
+
+.cookie-preferences.show {
+    display: block;
+}
+
+.cookie-preference-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.cookie-preference-row input {
+    width: 18px;
+    height: 18px;
+}
+
+.cookie-manage {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-primary);
+    font: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.cookie-manage:hover {
+    color: var(--color-primary-dark);
+}
+
+.form-consent label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+}
+
+.form-consent input {
+    flex: 0 0 auto;
+    margin-top: 4px;
+}
+
+.form-hint {
+    margin: 8px 0 0 26px;
+    color: #666;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
 /* Responsive Cookie Banner */
 @media (max-width: 768px) {
     .cookie-banner-content {

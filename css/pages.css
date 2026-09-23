@@ -73,6 +73,54 @@
     font-weight: 300;
 }
 
+.vertellus-page {
+    --vertellus-green: #5ade00;
+    --vertellus-dark-green: #2a3f3f;
+    --vertellus-yellow: #ffe700;
+    --vertellus-black: #000000;
+    --vertellus-white: #ffffff;
+}
+
+.vertellus-page .page-header {
+    background: linear-gradient(135deg, var(--vertellus-dark-green) 0%, var(--vertellus-black) 68%, var(--vertellus-green) 100%);
+}
+
+.vertellus-page .content-text h2,
+.vertellus-page .section-title {
+    color: var(--vertellus-dark-green);
+}
+
+.vertellus-page .service-card,
+.vertellus-page .value-card {
+    border-top: 4px solid var(--vertellus-green);
+}
+
+.vertellus-page .service-card h3,
+.vertellus-page .value-card h3 {
+    color: var(--vertellus-dark-green);
+}
+
+.vertellus-page .cta-section {
+    background: var(--vertellus-dark-green);
+}
+
+.vertellus-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.vertellus-page .btn-vertellus {
+    background: var(--vertellus-green);
+    color: var(--vertellus-black);
+}
+
+.vertellus-page .btn-vertellus:hover {
+    background: var(--vertellus-yellow);
+    color: var(--vertellus-black);
+}
+
 /* Ajuste para pantallas grandes */
 @media (min-width: 1240px) {
     .page-header {

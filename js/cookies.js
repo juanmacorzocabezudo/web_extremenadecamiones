@@ -1,47 +1,47 @@
-/**
- * Sistema de gestión de cookies y banner RGPD
- * Extremeña de Camiones - Cumplimiento legal España
- */
-
 class CookieConsent {
     constructor() {
-        this.cookieName = 'extremena_cookie_consent';
-        this.cookieExpireDays = 365;
+        this.storageKey = 'extremena_cookie_consent';
+        this.maxAge = 24 * 60 * 60 * 1000;
         this.init();
     }
 
     init() {
-        // Verificar si ya existe consentimiento
-        if (!this.hasConsent()) {
+        const consent = this.getConsent();
+        this.showManageButton();
+        if (!consent) {
             this.showBanner();
         }
     }
 
-    hasConsent() {
-        return localStorage.getItem(this.cookieName) !== null;
-    }
-
     getConsent() {
-        const consent = localStorage.getItem(this.cookieName);
-        return consent ? JSON.parse(consent) : null;
-    }
-
-    setConsent(accepted) {
-        const consentData = {
-            accepted: accepted,
-            timestamp: new Date().toISOString(),
-            version: '1.0'
-        };
-        localStorage.setItem(this.cookieName, JSON.stringify(consentData));
-        
-        // Si se aceptan, cargar scripts de terceros (Analytics, etc.)
-        if (accepted) {
-            this.loadAnalytics();
+        try {
+            const stored = localStorage.getItem(this.storageKey);
+            if (!stored) return null;
+            const consent = JSON.parse(stored);
+            if (!consent.timestamp || Date.now() - Date.parse(consent.timestamp) > this.maxAge) {
+                localStorage.removeItem(this.storageKey);
+                return null;
+            }
+            return consent;
+        } catch (error) {
+            localStorage.removeItem(this.storageKey);
+            return null;
         }
     }
 
+    saveConsent(preferences) {
+        localStorage.setItem(this.storageKey, JSON.stringify({
+            necessary: true,
+            analytics: Boolean(preferences.analytics),
+            advertising: Boolean(preferences.advertising),
+            timestamp: new Date().toISOString(),
+            version: '2.0'
+        }));
+        this.hideBanner();
+        this.showManageButton();
+    }
+
     showBanner() {
-        // Crear el banner si no existe
         if (document.getElementById('cookie-banner')) return;
 
         const banner = document.createElement('div');
@@ -50,76 +50,73 @@ class CookieConsent {
         banner.innerHTML = `
             <div class="cookie-banner-content">
                 <div class="cookie-banner-text">
-                    <h3>Uso de Cookies</h3>
-                    <p>Utilizamos cookies propias y de terceros para mejorar nuestros servicios y mostrarle publicidad relacionada con sus preferencias mediante el análisis de sus hábitos de navegación. Si continúa navegando, consideramos que acepta su uso.</p>
+                    <h3>Uso de cookies</h3>
+                    <p>Utilizamos cookies propias y de terceros para el funcionamiento del sitio y, con su consentimiento, para analizar la navegación. Puede aceptar, rechazar o configurar sus preferencias.</p>
+                    <div class="cookie-preferences" id="cookie-preferences">
+                        <label class="cookie-preference-row"><span>Cookies necesarias</span><input type="checkbox" checked disabled></label>
+                        <label class="cookie-preference-row"><span>Cookies analíticas</span><input id="cookie-analytics" type="checkbox"></label>
+                        <label class="cookie-preference-row"><span>Cookies publicitarias</span><input id="cookie-advertising" type="checkbox"></label>
+                    </div>
                 </div>
                 <div class="cookie-banner-buttons">
-                    <button id="cookie-accept" class="cookie-btn cookie-btn-accept">Aceptar</button>
-                    <button id="cookie-reject" class="cookie-btn cookie-btn-reject">Rechazar</button>
+                    <button id="cookie-accept" class="cookie-btn cookie-btn-accept" type="button">Aceptar todas</button>
+                    <button id="cookie-reject" class="cookie-btn cookie-btn-reject" type="button">Rechazar</button>
+                    <button id="cookie-configure" class="cookie-btn cookie-btn-more" type="button">Configurar</button>
                     <a href="politica-cookies.html" class="cookie-btn cookie-btn-more">Más información</a>
                 </div>
             </div>
         `;
-
         document.body.appendChild(banner);
 
-        // Event listeners
         document.getElementById('cookie-accept').addEventListener('click', () => {
-            this.acceptCookies();
+            this.saveConsent({ analytics: true, advertising: true });
         });
-
         document.getElementById('cookie-reject').addEventListener('click', () => {
-            this.rejectCookies();
+            this.saveConsent({ analytics: false, advertising: false });
+        });
+        document.getElementById('cookie-configure').addEventListener('click', (event) => {
+            const preferences = document.getElementById('cookie-preferences');
+            if (!preferences.classList.contains('show')) {
+                preferences.classList.add('show');
+                event.target.textContent = 'Guardar preferencias';
+                return;
+            }
+            this.saveConsent({
+                analytics: document.getElementById('cookie-analytics').checked,
+                advertising: document.getElementById('cookie-advertising').checked
+            });
         });
 
-        // Mostrar el banner con animación
-        setTimeout(() => {
-            banner.classList.add('show');
-        }, 500);
+        setTimeout(() => banner.classList.add('show'), 100);
+    }
+
+    showManageButton() {
+        if (document.getElementById('cookie-manage')) return;
+        const legalLinks = document.querySelector('.footer-legal');
+        if (!legalLinks) return;
+        const button = document.createElement('button');
+        button.id = 'cookie-manage';
+        button.className = 'cookie-manage';
+        button.type = 'button';
+        button.textContent = 'Preferencias de cookies';
+        button.addEventListener('click', () => {
+            this.showBanner();
+            document.getElementById('cookie-banner').classList.add('show');
+        });
+        legalLinks.appendChild(button);
     }
 
     hideBanner() {
         const banner = document.getElementById('cookie-banner');
-        if (banner) {
-            banner.classList.remove('show');
-            setTimeout(() => {
-                banner.remove();
-            }, 300);
-        }
+        if (banner) banner.remove();
     }
 
-    acceptCookies() {
-        this.setConsent(true);
-        this.hideBanner();
-    }
-
-    rejectCookies() {
-        this.setConsent(false);
-        this.hideBanner();
-    }
-
-    loadAnalytics() {
-        // Aquí se cargarían scripts de Google Analytics u otros
-        // Solo si el usuario ha aceptado
-        console.log('Analytics cargado - Usuario aceptó cookies');
-        
-        // Ejemplo: Google Analytics
-        // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        // m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        // })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        // ga('create', 'UA-XXXXXXXX-X', 'auto');
-        // ga('send', 'pageview');
-    }
-
-    // Método para resetear el consentimiento (útil para testing)
     resetConsent() {
-        localStorage.removeItem(this.cookieName);
+        localStorage.removeItem(this.storageKey);
         location.reload();
     }
 }
 
-// Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
     window.cookieConsent = new CookieConsent();
 });
