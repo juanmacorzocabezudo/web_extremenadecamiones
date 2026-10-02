@@ -242,12 +242,13 @@ if (contactForm) {
         const formData = new FormData(contactForm);
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
+        let response;
         
         submitBtn.disabled = true;
         submitBtn.textContent = 'Enviando...';
 
         try {
-            const response = await fetch('php/contact.php', {
+            response = await fetch(contactForm.action, {
                 method: 'POST',
                 body: formData
             });
@@ -255,20 +256,92 @@ if (contactForm) {
             const result = await response.json();
 
             if (result.success) {
-                alert('Mensaje enviado correctamente. Nos pondremos en contacto con usted pronto.');
+                alert(result.message || 'Mensaje enviado correctamente. Nos pondremos en contacto con usted pronto.');
                 contactForm.reset();
             } else {
                 alert(result.message || 'Error al enviar el mensaje. Por favor, inténtelo de nuevo.');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('No se ha podido conectar con el servidor. Abra la web desde http://127.0.0.1:8000/index.html.');
+            if (response && response.status === 404) {
+                alert('El servidor no encuentra php/contact.php. Compruebe que el endpoint está publicado en la carpeta php.');
+            } else if (response && !response.ok) {
+                alert(`El servidor respondió con un error HTTP ${response.status}. Inténtelo de nuevo más tarde.`);
+            } else if (error instanceof SyntaxError) {
+                alert('El servidor devolvió una respuesta no válida. Compruebe la configuración de php/contact.php.');
+            } else {
+                alert('No se ha podido conectar con el servidor. Compruebe su conexión e inténtelo de nuevo.');
+            }
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
-            grecaptcha.reset();
+            if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
         }
     });
+}
+
+const applicationForm = document.querySelector('#applicationForm');
+if (applicationForm) {
+    applicationForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!validateForm(applicationForm)) {
+            alert('Por favor, complete todos los campos correctamente.');
+            return;
+        }
+
+        const cvFile = applicationForm.querySelector('input[name="cv"]').files[0];
+        if (!cvFile || cvFile.size > 5 * 1024 * 1024) {
+            alert('Adjunte un CV de hasta 5 MB.');
+            return;
+        }
+
+        if (typeof grecaptcha === 'undefined' || !grecaptcha.getResponse()) {
+            alert('Por favor, complete la verificación de seguridad.');
+            return;
+        }
+
+        const formData = new FormData(applicationForm);
+        const submitBtn = applicationForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+
+        try {
+            const response = await fetch('php/career.php', {
+                method: 'POST',
+                headers: { Accept: 'application/json' },
+                body: formData
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                alert(result.message || 'Candidatura enviada correctamente. Gracias por tu interés.');
+                applicationForm.reset();
+            } else {
+                alert(result.message || 'No se ha podido enviar la candidatura. Inténtelo de nuevo.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('No se ha podido conectar con el servidor. Inténtelo de nuevo más tarde.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+        }
+    });
+}
+
+const applicationParams = new URLSearchParams(window.location.search);
+const applicationStatus = applicationParams.get('candidatura');
+if (applicationStatus) {
+    alert(applicationParams.get('mensaje') || (applicationStatus === 'enviada'
+        ? 'Candidatura enviada correctamente. Gracias por tu interés.'
+        : 'No se ha podido enviar la candidatura. Inténtelo de nuevo.'));
+    applicationParams.delete('candidatura');
+    applicationParams.delete('mensaje');
+    const cleanQuery = applicationParams.toString();
+    window.history.replaceState({}, document.title, window.location.pathname + (cleanQuery ? '?' + cleanQuery : '') + window.location.hash);
 }
 
 // ===================================

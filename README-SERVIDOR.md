@@ -8,7 +8,7 @@ Abre una terminal en la carpeta raíz del proyecto y ejecuta:
 
 ```bash
 cd "/Users/juanmariacorzo/Documents/Extremeña de camiones/Web"
-php -S localhost:8000
+php -d upload_max_filesize=6M -d post_max_size=8M -S localhost:8000
 ```
 
 Luego accede a:
@@ -36,6 +36,12 @@ El formulario usa SMTP autenticado de Arsys y necesita el archivo `config.local.
 Debe contener la configuración SMTP de `info@extremenadecamiones.es`, con el servidor `smtp.serviciodecorreo.es`, el puerto `465`, la contraseña de la cuenta y el destinatario interno `info@extremenadecamiones.es`.
 
 Si el formulario sigue mostrando un error después de subirlo, revisa el `error_log` del hosting: el endpoint registra si falta la configuración o en qué fase responde con error el servidor SMTP.
+
+## Formulario de candidaturas
+
+El formulario «Trabaja con nosotros» envía el CV como adjunto a `cv@extremenadecamiones.es` mediante la misma configuración SMTP. Admite archivos PDF, DOC y DOCX de hasta 5 MB; el servidor PHP debe tener `upload_max_filesize` de al menos 6 MB, `post_max_size` de al menos 8 MB y la extensión `fileinfo` habilitada. El directorio `data/career-uploads/` debe desplegarse con permisos de escritura para PHP; está bloqueado para el acceso web mediante `.htaccess` y `web.config`.
+
+Para validar reCAPTCHA en local, `localhost` debe estar autorizado en la configuración de dominios de la clave de sitio, o se debe usar una clave de pruebas.
 
 ## Credenciales del Admin
 

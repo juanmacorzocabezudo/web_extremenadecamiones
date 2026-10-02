@@ -125,8 +125,12 @@ $confirmationSent = smtpSendMail($config, $email, 'Hemos recibido su mensaje', $
 if ($notificationSent && $confirmationSent) {
     $response['success'] = true;
     $response['message'] = 'Mensaje enviado correctamente. Nos pondremos en contacto con usted pronto.';
+} elseif ($notificationSent) {
+    error_log('Contacto web: mensaje recibido, pero no se pudo enviar la confirmación a ' . $email);
+    $response['success'] = true;
+    $response['message'] = 'Su mensaje se ha enviado correctamente, pero no hemos podido enviar el correo de confirmación. No es necesario que vuelva a enviar el formulario.';
 } else {
-    $response['message'] = 'No se ha podido enviar el mensaje. Por favor, inténtelo de nuevo más tarde o contacte por teléfono.';
+    $response['message'] = 'No se ha podido entregar su mensaje al equipo. Por favor, inténtelo de nuevo más tarde o contacte por teléfono.';
 }
 
 echo json_encode($response);
